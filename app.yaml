@@ -1,0 +1,79 @@
+# runtime: php
+# env: flex
+# api_version: 1
+# 
+# manual_scaling:
+#   instances: 1
+# 
+# beta_settings:
+#   cloud_sql_instances: "willwork-402711:us-central1:text-extraction-db"
+# 
+# # include: 
+# #   - credentials.yaml
+# 
+# runtime_config:
+#   document_root: .
+# 
+# handlers:
+# - url: /(.+\.png)
+#   static_files: \1
+#   upload: .+\.png
+# 
+# - url: /(.+\.jpg)
+#   static_files: \1
+#   upload: .+\.jpg
+# 
+# - url: /(.+\.PNG)
+#   static_files: \1
+#   upload: .+\.PNG
+# 
+# - url: /.*
+#   script: auto
+# 
+# env_variables:
+#   MYSQL_DSN: "mysql:unix_socket:/cloudsql/willwork-402711:us-central1:text-extraction-db;dbname=text2"
+#   MYSQL_PORT: "3306"
+#   MYSQL_DB: "text2"
+#   MYSQL_USER: "root"
+#   MYSQL_PASSWORD: "12345678"
+runtime: php
+env: flex
+api_version: 1
+
+manual_scaling:
+  instances: 1
+
+beta_settings:
+  cloud_sql_instances: "willwork-402711:us-central1:text-extraction-db"
+
+runtime_config:
+  document_root: .
+
+
+handlers:
+- url: /upload/(.+\.png)
+  static_files: upload/\1
+  upload: upload/.+\.png
+
+- url: /upload/(.+\.jpg)
+  static_files: upload/\1
+  upload: upload/.+\.jpg
+
+- url: /upload/(.+\.PNG)
+  static_files: upload/\1
+  upload: upload/.+\.PNG
+
+- url: /upload/(.+)
+  static_files: upload/\1
+  upload: upload/.+
+
+- url: /.*
+  script: auto
+
+env_variables:
+  GOOGLE_STORAGE_BUCKET: "willwork-402711.appspot.com"
+  MYSQL_DSN: "mysql:unix_socket:/cloudsql/willwork-402711:us-central1:text-extraction-db;dbname=text2"
+  MYSQL_PORT: "3306"
+  MYSQL_DB: "text2"
+  MYSQL_USER: "root"
+  MYSQL_PASSWORD: "12345678"
